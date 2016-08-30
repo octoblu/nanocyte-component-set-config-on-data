@@ -1,9 +1,9 @@
 ReturnValue = require 'nanocyte-component-return-value'
-SetMessageOnData = require '../src/set-config-on-data'
+SetConfigOnData = require '..'
 
-describe 'SetMessageOnData', ->
+describe 'SetConfigOnData', ->
   beforeEach ->
-    @sut = new SetMessageOnData transactionId: 'hi'
+    @sut = new SetConfigOnData
 
   it 'should exist', ->
     expect(@sut).to.be.an.instanceOf ReturnValue
@@ -15,7 +15,7 @@ describe 'SetMessageOnData', ->
           config: "test2"
           data: { 'yo': 'mama'}
       it 'should return the object', ->
-        expect(@sut.onEnvelope(@envelope)).to.deep.equal yo: 'mama', hi: 'test2'
+        expect(@sut.onEnvelope(@envelope)).to.deep.equal "test2"
 
     describe 'when called with null data it should create it and then add', ->
       beforeEach ->
@@ -23,7 +23,7 @@ describe 'SetMessageOnData', ->
           config: "test2"
           data: null
       it 'should return the object', ->
-        expect(@sut.onEnvelope(@envelope)).to.deep.equal hi: 'test2'
+        expect(@sut.onEnvelope(@envelope)).to.deep.equal 'test2'
 
     describe 'when called with empty data it should add to object', ->
       beforeEach ->
@@ -31,7 +31,7 @@ describe 'SetMessageOnData', ->
           config: "test2"
           data: {}
       it 'should return the object', ->
-        expect(@sut.onEnvelope(@envelope)).to.deep.equal hi: 'test2'
+        expect(@sut.onEnvelope(@envelope)).to.deep.equal 'test2'
 
     describe 'when called with config in object form', ->
       beforeEach ->
@@ -39,4 +39,4 @@ describe 'SetMessageOnData', ->
           config: {"test2" : 50}
           data: {'bleep':'blarg'}
       it 'should return the object', ->
-        expect(@sut.onEnvelope(@envelope)).to.deep.equal {'bleep':'blarg', 'hi':{"test2" : 50}}
+        expect(@sut.onEnvelope(@envelope)).to.deep.equal {"test2" : 50}

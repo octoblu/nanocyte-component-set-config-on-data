@@ -2,14 +2,9 @@ _ = require 'lodash'
 ReturnValue = require 'nanocyte-component-return-value'
 
 class SetConfigOnData extends ReturnValue
-  constructor: (@metadata)->
-    super @metadata
   onEnvelope: (envelope) =>
-    {data, config} = envelope
+    {config} = envelope
 
-    data = {} unless _.isObject data
-    data[@metadata.transactionId] = config
-
-    return data
+    return config
 
 module.exports = SetConfigOnData
